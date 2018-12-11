@@ -1,21 +1,39 @@
-const btn = document.querySelector(".btn");
-const itemsLi = document.querySelectorAll("li");
+let size = 10;
+let orderElement = 1;
 
-let size = 15;
+const init = () => {
+    const button = document.createElement("button");
+    const resetButton = document.createElement("button");
 
-const showList = () => {
-    size += 2;
+    button.classList.add("button");
+    resetButton.classList.add("resetBtn");
+    button.textContent = `Create List`;
+    resetButton.textContent = `Delete List`;
+    document.body.appendChild(button);
+    document.body.appendChild(resetButton);
 
-    function changeStyle(itemOneLi) {
-        itemOneLi.style.display = "block";
-        itemOneLi.style.fontSize = size + "px";
+    const ulList = document.createElement("ul");
+    document.body.appendChild(ulList);
+
+    button.addEventListener('click', createLiElements);
+    resetButton.addEventListener('click', resetList);
+};
+
+const createLiElements = () => {
+
+    for (let i = 0; i < 10; i++) {
+        const liPosition = document.createElement("li");
+        liPosition.textContent = `Element listy nr ${orderElement++}`;
+        liPosition.style.fontSize = `${size++}px`;
+        document.querySelector("ul").appendChild(liPosition);
     }
-    // for (let i = 0; i <= itemsLi.length; i++) {
-    //     itemsLi[i].style.display = "block";
-    //     itemsLi[i].style.fontSize = size + "px";
-    // }
 
-    [...itemsLi].forEach(changeStyle);
-}
+};
 
-btn.addEventListener('click', showList);
+const resetList = () => {
+    document.querySelector('ul').innerHTML = "";
+    size = 10;
+    orderElement = 1;
+};
+
+init();
